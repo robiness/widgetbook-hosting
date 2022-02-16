@@ -1,0 +1,53 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@robiness 
+robiness
+/
+locker
+Code
+Issues
+1
+Pull requests
+Actions
+Projects
+Settings
+More
+locker/.github/workflows/main.yml
+@robiness
+robiness Create main.yml
+Latest commit ed211db 9 minutes ago
+ History
+ 1 contributor
+26 lines (23 sloc)  588 Bytes
+   
+name: Mixed inputs
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        type: choice
+        description: Who to greet
+        options: 
+        - monalisa
+        - cschleiden
+      message:
+        required: true
+      use-emoji:
+        type: boolean
+        description: Include 🎉🤣 emojis
+      environment:
+        type: environment
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Send greeting
+      run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
